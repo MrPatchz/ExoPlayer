@@ -35,7 +35,7 @@ public class HtmlUtilsTest {
   @Test
   public void toCssRgba_truncatedAlpha() {
     String cssRgba = HtmlUtils.toCssRgba(Color.argb(100, 13, 23, 37));
-    assertThat(cssRgba).isEqualTo("rgba(13,23,37,0.200)");
+    assertThat(cssRgba).isEqualTo("rgba(13,23,37,0.392)");
   }
 
   /**
@@ -47,17 +47,4 @@ public class HtmlUtilsTest {
     String cssRgba = HtmlUtils.toCssRgba(Color.argb(-1, -1, -1, -1));
     assertThat(cssRgba).isEqualTo("rgba(255,255,255,1.000)");
   }
-
-  /**
-   * Tests to see if expected returns the expected value instead of throwing an exception
-   *This should default to expected value.
-   */
-
-  @Test
-  public void InvalidExpectedCssRgba_truncatedAlpha() {
-    String cssRgba = HtmlUtils.toCssRgba(Color.argb(100, 13, 23, 37));
-    assertThat(cssRgba).isEqualTo("rgba(110,43,66,0.394)");
-  }
-
-
 }
