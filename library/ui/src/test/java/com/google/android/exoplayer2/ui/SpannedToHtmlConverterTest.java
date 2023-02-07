@@ -400,6 +400,23 @@ public class SpannedToHtmlConverterTest {
   }
 
   @Test
+  public void convert_convertsUnicodeToAmpersandCodes() {
+    SpannedToHtmlConverter.HtmlAndCss htmlAndCss =
+        SpannedToHtmlConverter.convert(
+            new SpannableString("유니코드"), displayDensity);
+
+    assertThat(htmlAndCss.cssRuleSets).isEmpty();
+    assertThat(htmlAndCss.html)
+        .isEqualTo("&#50976;&#45768;&#53076;&#46300;");
+
+  }
+
+
+
+
+
+
+  @Test
   public void convert_ignoresUnrecognisedSpan() {
     SpannableString spanned = new SpannableString("String with unrecognised span");
     spanned.setSpan(

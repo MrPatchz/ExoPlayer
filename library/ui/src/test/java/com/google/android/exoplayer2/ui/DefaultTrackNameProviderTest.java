@@ -38,4 +38,16 @@ public class DefaultTrackNameProviderTest {
 
     assertThat(name).isEqualTo(resources.getString(R.string.exo_track_unknown));
   }
+
+  @Test
+  public void getTrackName_handlesEmptySpace() {
+    Resources resources = ApplicationProvider.getApplicationContext().getResources();
+    DefaultTrackNameProvider provider = new DefaultTrackNameProvider(resources);
+    Format format = new Format.Builder().setLanguage("").build();
+
+    String name = provider.getTrackName(format);
+
+    assertThat(name).isEqualTo(resources.getString(R.string.exo_track_unknown));
+  }
+
 }
