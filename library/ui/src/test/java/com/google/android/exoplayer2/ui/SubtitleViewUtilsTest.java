@@ -196,4 +196,17 @@ public class SubtitleViewUtilsTest {
         .setShearDegrees(-15f)
         .build();
   }
+
+  @Test
+  public void checkAltCode() {
+    Cue.Builder cueBuilder = CUE.buildUpon();
+    SubtitleViewUtils.removeEmbeddedFontSizes(cueBuilder);
+    Cue strippedCue = cueBuilder.build();
+
+    Spanned originalText = (Spanned) CUE.text;
+    Spanned strippedText = (Spanned) strippedCue.text;
+
+    
+
+  }
 }

@@ -37,4 +37,14 @@ public class HtmlUtilsTest {
     String cssRgba = HtmlUtils.toCssRgba(Color.argb(100, 13, 23, 37));
     assertThat(cssRgba).isEqualTo("rgba(13,23,37,0.392)");
   }
+
+  /**
+   * Tests for an invalid ARGB value of all -1
+   *This should default to the maximum values.
+   */
+  @Test
+  public void toCssRgba_InavlidRGBA() {
+    String cssRgba = HtmlUtils.toCssRgba(Color.argb(-1, -1, -1, -1));
+    assertThat(cssRgba).isEqualTo("rgba(255,255,255,1.000)");
+  }
 }
