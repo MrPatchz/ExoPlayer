@@ -12164,6 +12164,25 @@ public final class ExoPlayerTest {
   }
 
 
+  // 261 we are testing JUNIT test to see if the the player remains paused even after seeking to the next window
+  @Test
+  public void doesSeekToNext_whilePaused_withNextWindow_seekedToNextWindow_andRemainsPaused(){
+
+    ExoPlayer player = new TestExoPlayerBuilder(context).build();
+    player.addMediaSources(ImmutableList.of(new FakeMediaSource(), new FakeMediaSource()));
+player.pause();
+    player.seekToNext();
+
+
+    assertFalse(player.isPlaying());
+    assertThat(player.getCurrentMediaItemIndex()).isEqualTo(1);
+    assertThat(player.getCurrentPosition()).isEqualTo(0);
+
+    player.release();
+  }
+
+
+
   // Internal methods.
 
   private static ActionSchedule.Builder addSurfaceSwitch(ActionSchedule.Builder builder) {
