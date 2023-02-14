@@ -51,6 +51,7 @@ import static com.google.android.exoplayer2.robolectric.RobolectricUtil.runMainL
 import static com.google.android.exoplayer2.robolectric.TestPlayerRunHelper.playUntilPosition;
 import static com.google.android.exoplayer2.robolectric.TestPlayerRunHelper.playUntilStartOfMediaItem;
 import static com.google.android.exoplayer2.robolectric.TestPlayerRunHelper.runUntilPendingCommandsAreFullyHandled;
+import static com.google.android.exoplayer2.robolectric.TestPlayerRunHelper.runUntilPlayWhenReady;
 import static com.google.android.exoplayer2.robolectric.TestPlayerRunHelper.runUntilPlaybackState;
 import static com.google.android.exoplayer2.robolectric.TestPlayerRunHelper.runUntilPositionDiscontinuity;
 import static com.google.android.exoplayer2.robolectric.TestPlayerRunHelper.runUntilSleepingForOffload;
@@ -64,7 +65,9 @@ import static com.google.android.exoplayer2.testutil.TestUtil.assertTimelinesSam
 import static com.google.android.exoplayer2.testutil.TestUtil.timelinesAreSame;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.ArgumentMatchers.any;
@@ -83,6 +86,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.robolectric.Shadows.shadowOf;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.SurfaceTexture;
@@ -164,6 +168,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -12122,6 +12127,42 @@ public final class ExoPlayerTest {
 
     // Assert that playing works without getting stuck due to the memory used by the back buffer.
   }
+
+  //261 added JUNIT Tests for verifying if it's in a play state if it
+  // maintains it's play state when seeking forward
+  @Test
+  public void doesSeekForwardWhilePlayStayPlay() throws TimeoutException {
+    ExoPlayer player =
+        new TestExoPlayerBuilder(ApplicationProvider.getApplicationContext()).build();
+    player.setMediaItem(
+        MediaItem.fromUri("asset:///media/mp4/sample_with_increasing_timestamps_360p.mp4"));
+    player.prepare();
+    player.play();
+    runUntilPlaybackState(player, Player.STATE_READY);
+    player.seekForward();
+    runUntilPlaybackState(player, Player.STATE_READY);
+    assertTrue(player.isPlaying());
+    player.release();
+  }
+
+
+  //261 added JUNIT Tests for verifying if it's in a pause state if it
+  // maintains it's pause state when seeking backward
+  @Test
+  public void doesSeekPreviousWhilePausedStayPaused() throws TimeoutException {
+    ExoPlayer player =
+        new TestExoPlayerBuilder(ApplicationProvider.getApplicationContext()).build();
+    player.setMediaItem(
+        MediaItem.fromUri("asset:///media/mp4/sample_with_increasing_timestamps_360p.mp4"));
+    player.prepare();
+    player.pause();
+    runUntilPlaybackState(player, Player.STATE_READY);
+    player.seekToPrevious();
+    runUntilPlaybackState(player, Player.STATE_READY);
+    assertFalse(player.isPlaying());
+    player.release();
+  }
+
 
   // Internal methods.
 

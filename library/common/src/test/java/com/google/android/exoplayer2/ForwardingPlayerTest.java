@@ -22,22 +22,39 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.robolectric.Shadows.shadowOf;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Looper;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import com.google.android.exoplayer2.source.MaskingMediaSource;
+import com.google.android.exoplayer2.testutil.ActionSchedule;
+import com.google.android.exoplayer2.testutil.ExoPlayerTestRunner;
+import com.google.android.exoplayer2.testutil.FakeMediaSource;
+import com.google.android.exoplayer2.testutil.FakeRenderer;
+import com.google.android.exoplayer2.testutil.FakeTimeline;
 import com.google.android.exoplayer2.testutil.StubPlayer;
+import com.google.android.exoplayer2.testutil.TestExoPlayerBuilder;
 import com.google.android.exoplayer2.testutil.TestUtil;
+import com.google.android.exoplayer2.util.Clock;
 import com.google.android.exoplayer2.util.FlagSet;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Supplier;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.robolectric.shadows.ShadowLooper;
 
 /** Unit tests for {@link ForwardingPlayer}. */
 @RunWith(AndroidJUnit4.class)
 public class ForwardingPlayerTest {
+
 
   @Test
   public void addListener_addsForwardingListener() {
@@ -125,6 +142,16 @@ public class ForwardingPlayerTest {
     }
   }
 
+  //261
+  @Test
+  public void testStillRunningAfterFastForward() throws Exception {
+    FakePlayer player = new FakePlayer();
+
+    player.play();
+    System.out.println(player.isPlaying());
+
+  }
+
   private static Class<?> getInnerClass(String className) {
     for (Class<?> innerClass : ForwardingPlayer.class.getDeclaredClasses()) {
       if (innerClass.getSimpleName().equals(className)) {
@@ -148,4 +175,5 @@ public class ForwardingPlayerTest {
       listeners.remove(listener);
     }
   }
+
 }
