@@ -12164,6 +12164,44 @@ public final class ExoPlayerTest {
   }
 
 
+  //261 added Junit Test for verifying if we press the rewind button, then the play state will remain.
+  @Test
+  public void doesSeekPreviousStayInPlayedState() throws TimeoutException {
+    ExoPlayer player =
+        new TestExoPlayerBuilder(ApplicationProvider.getApplicationContext()).build();
+    player.setMediaItem(
+        MediaItem.fromUri("asset:///media/mp4/sample_with_increasing_timestamps_360p.mp4"));
+    player.prepare();
+    player.play();
+    runUntilPlaybackState(player, Player.STATE_READY);
+    player.seekToPrevious();
+    runUntilPlaybackState(player, Player.STATE_READY);
+    assertTrue(player.getPlayWhenReady());
+    player.release();
+  }
+
+
+  //261 Junitest to verify that the video can start from the beginning again while in pause state and seeking
+  //previous.
+  @Test
+  public void doesVideoStartFromBeginning() throws TimeoutException {
+    ExoPlayer player =
+        new TestExoPlayerBuilder(ApplicationProvider.getApplicationContext()).build();
+    player.setMediaItem(
+        MediaItem.fromUri("asset:///media/mp4/sample_with_increasing_timestamps_360p.mp4"));
+    player.prepare();
+    player.pause();
+    runUntilPlaybackState(player, Player.STATE_READY);
+    player.seekToPrevious();
+    player.getVideoFormat();
+    runUntilPlaybackState(player, Player.STATE_READY);
+    assertFalse(player.isPlaying());
+    player.release();
+  }
+
+
+
+
   // 261 we are testing JUNIT test to see if the the player remains paused even after seeking to the next window
   @Test
   public void doesSeekToNext_whilePaused_withNextWindow_seekedToNextWindow_andRemainsPaused(){
