@@ -16,7 +16,7 @@ public class HeartRatingTest {
    * Tests basic instantiation of the HeartRating class
    */
   @Test
-  public void checkDefaultThumbInstantiation(){
+  public void checkDefaultHeartInstantiation(){
     HeartRating heartRating = new HeartRating();
     assertFalse(heartRating.isRated());
     assertFalse(heartRating.isHeart());
@@ -27,7 +27,7 @@ public class HeartRatingTest {
    * Also checks for proper function of the hash code method against a true, true objects hashcode
    */
   @Test
-  public void checkThumbInstantiationWithRating(){
+  public void checkHeartInstantiationWithRating(){
     HeartRating heartRating = new HeartRating(true);
     assertTrue(heartRating.isRated());
     assertTrue(heartRating.isHeart());
@@ -38,7 +38,7 @@ public class HeartRatingTest {
    * Checks if two HeartRating objects will equal each other correctly
    */
   @Test
-  public void checkThumbEqualsFunctionality() {
+  public void checkHeartEqualsFunctionality() {
     HeartRating heartRatingFirst = new HeartRating(true);
     HeartRating heartRatingSecond = new HeartRating();
     HeartRating heartRatingThird = new HeartRating(true);
