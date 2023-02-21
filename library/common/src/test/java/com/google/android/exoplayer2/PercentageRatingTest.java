@@ -67,7 +67,7 @@ public class PercentageRatingTest {
   @Test
   public void instantiateAndBundle(){
     PercentageRating percentageRating = new PercentageRating();
-    percentageRating.toBundle();
+    assertNotEquals(null, percentageRating.toBundle());
 
     }
 
