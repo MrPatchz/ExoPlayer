@@ -29,6 +29,15 @@ import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * The branch testing and method verification of this test is very comprehensive and should be expected
+ * in a media player since there is an exception amount of areas where this could go wrong. Each method addresses
+ * multiple branches of a given method to provide the most possible branch coverage within' each method of the
+ * Timeline class. An excellent example of branch coverage is the very bottom in the "Equals" section which
+ * coveres many of the possible edge cases that could be run into with a class like that providing a thorough line
+ * coverage.
+ */
+
 /** Unit test for {@link Timeline}. */
 @RunWith(AndroidJUnit4.class)
 public class TimelineTest {

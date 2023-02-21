@@ -23,6 +23,12 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * Existing test suite that covers bundle recieving and instantiation.
+ *
+ * This test suite gives the BundleListReceiver class 100% coverage. It covers all methods
+ */
+
 /** Tests for {@link BundleListRetriever}. */
 @RunWith(AndroidJUnit4.class)
 public class BundleListRetrieverTest {

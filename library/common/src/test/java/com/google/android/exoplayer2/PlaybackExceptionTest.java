@@ -24,6 +24,11 @@ import java.io.IOException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * This playback exception test has a lot of coverage regarding the various branches and edge cases
+ * someone could run into when trying to create a fully formed exception class.
+ */
+
 /** Unit tests for {@link PlaybackException}. */
 @RunWith(AndroidJUnit4.class)
 public class PlaybackExceptionTest {

@@ -36,6 +36,9 @@ public class HeartRatingTest {
 
   /**
    * Checks if two HeartRating objects will equal each other correctly
+   * The addition of the check against an incorrect data type in the equals section allows us to have
+   * better coverage of the branches since we would miss it without the last line trying to equate a
+   * heart object to a string
    */
   @Test
   public void checkHeartEqualsFunctionality() {

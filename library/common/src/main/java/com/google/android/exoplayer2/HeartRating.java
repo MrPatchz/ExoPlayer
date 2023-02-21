@@ -28,6 +28,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * MSWE 261 Existing test suite does cover some amount of bundling and instantiation of the heart class
+ * However, many of the existing methods and lines are not completely covered.
+ */
+
+/**
  * A rating expressed as "heart" or "no heart". It can be used to indicate whether the content is a
  * favorite.
  */
