@@ -116,7 +116,7 @@ public class TimelineTest {
 
     assertThat(timeline).isEqualTo(timelineWithEquivalentShuffleOrder);
     assertThat(timeline.hashCode()).isEqualTo(timelineWithEquivalentShuffleOrder.hashCode());
-    assertThat(timeline).isNotEqualTo(timelineWithDifferentShuffleOrder);
+    assertThat                                (timeline).isNotEqualTo(timelineWithDifferentShuffleOrder);
   }
 
   @Test
