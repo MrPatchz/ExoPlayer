@@ -142,16 +142,6 @@ public class ForwardingPlayerTest {
     }
   }
 
-  //261
-  @Test
-  public void testStillRunningAfterFastForward() throws Exception {
-    FakePlayer player = new FakePlayer();
-
-    player.play();
-    System.out.println(player.isPlaying());
-
-  }
-
   private static Class<?> getInnerClass(String className) {
     for (Class<?> innerClass : ForwardingPlayer.class.getDeclaredClasses()) {
       if (innerClass.getSimpleName().equals(className)) {
