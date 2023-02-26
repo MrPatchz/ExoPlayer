@@ -37,7 +37,8 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:' + androidxTestRunnerVersion
     androidTestCompileOnly 'org.checkerframework:checker-qual:' + checkerframeworkVersion
     testImplementation project(modulePrefix + 'testutils')
-    testImplementation 'org.robolectric:robolectric:' + robolectricVersion
+    testImplementation "org.robolectric:robolectric:4.9"
+    testImplementation 'junit:junit:4.13.2'
 }
 
 ext {

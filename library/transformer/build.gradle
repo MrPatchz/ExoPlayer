@@ -46,12 +46,13 @@ dependencies {
     testImplementation project(modulePrefix + 'robolectricutils')
     testImplementation project(modulePrefix + 'testutils')
     testImplementation project(modulePrefix + 'testdata')
-    testImplementation 'org.robolectric:robolectric:' + robolectricVersion
     testImplementation 'com.google.truth:truth:' + truthVersion
     androidTestImplementation 'junit:junit:' + junitVersion
     androidTestImplementation 'androidx.test:runner:' + androidxTestRunnerVersion
     androidTestImplementation 'com.google.truth:truth:' + truthVersion
     androidTestImplementation project(modulePrefix + 'testutils')
+    testImplementation "org.robolectric:robolectric:4.9"
+    testImplementation 'junit:junit:4.13.2'
 }
 
 ext {
