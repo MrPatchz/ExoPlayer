@@ -16,6 +16,8 @@
 package com.google.android.exoplayer2.robolectric;
 
 
+import static org.robolectric.Shadows.shadowOf;
+
 import android.os.Looper;
 import com.google.android.exoplayer2.util.Clock;
 import com.google.android.exoplayer2.util.ConditionVariable;

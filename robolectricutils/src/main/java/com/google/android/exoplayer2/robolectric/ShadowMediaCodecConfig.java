@@ -24,7 +24,6 @@ import com.google.common.primitives.Ints;
 import java.nio.ByteBuffer;
 import java.util.List;
 import org.junit.rules.ExternalResource;
-import org.robolectric.shadows.*;
 import org.robolectric.shadows.MediaCodecInfoBuilder;
 import org.robolectric.shadows.ShadowMediaCodec;
 import org.robolectric.shadows.ShadowMediaCodecList;
