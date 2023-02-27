@@ -21,7 +21,6 @@ android {
         testInstrumentationRunnerArguments clearPackageData: 'true'
         multiDexEnabled true
     }
-
     buildTypes {
         debug {
             testCoverageEnabled = true
@@ -47,6 +46,8 @@ dependencies {
     api project(modulePrefix + 'library-database')
     implementation 'androidx.annotation:annotation:' + androidxAnnotationVersion
     implementation 'androidx.core:core:' + androidxCoreVersion
+    testImplementation project(path: ':exoplayer-robolectricutils')
+    testImplementation project(path: ':exoplayer-robolectricutils')
     compileOnly 'com.google.code.findbugs:jsr305:' + jsr305Version
     compileOnly 'org.checkerframework:checker-qual:' + checkerframeworkVersion
     compileOnly 'org.checkerframework:checker-compat-qual:' + checkerframeworkCompatVersion
