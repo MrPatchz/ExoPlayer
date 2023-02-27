@@ -14,13 +14,13 @@
 apply from: "$gradle.ext.exoplayerSettingsDir/common_library_config.gradle"
 
 dependencies {
+    testImplementation "org.robolectric:robolectric:4.9"
     compileOnly 'org.checkerframework:checker-qual:' + checkerframeworkVersion
     compileOnly 'org.checkerframework:checker-compat-qual:' + checkerframeworkCompatVersion
     compileOnly 'org.jetbrains.kotlin:kotlin-annotations-jvm:' + kotlinAnnotationsVersion
     implementation 'androidx.annotation:annotation:' + androidxAnnotationVersion
     implementation project(modulePrefix + 'library-core')
     implementation project(modulePrefix + 'testutils')
-    testImplementation "org.robolectric:robolectric:4.9"
     testImplementation 'junit:junit:4.13.2'
 }
 

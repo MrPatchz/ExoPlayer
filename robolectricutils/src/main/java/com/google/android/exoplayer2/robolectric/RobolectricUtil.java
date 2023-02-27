@@ -15,7 +15,6 @@
  */
 package com.google.android.exoplayer2.robolectric;
 
-import static org.robolectric.Shadows.shadowOf;
 
 import android.os.Looper;
 import com.google.android.exoplayer2.util.Clock;
@@ -24,6 +23,7 @@ import com.google.android.exoplayer2.util.SystemClock;
 import com.google.common.base.Supplier;
 import java.util.concurrent.TimeoutException;
 import org.robolectric.shadows.ShadowLooper;
+
 
 /** Utility methods for Robolectric-based tests. */
 public final class RobolectricUtil {
