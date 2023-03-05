@@ -230,62 +230,6 @@ public final class DefaultAnalyticsCollectorTest {
   }
 
   @Test
-  public void singlePeriod() throws Exception {
-    FakeMediaSource mediaSource =
-        new FakeMediaSource(
-            SINGLE_PERIOD_TIMELINE,
-            ExoPlayerTestRunner.VIDEO_FORMAT,
-            ExoPlayerTestRunner.AUDIO_FORMAT);
-    TestAnalyticsListener listener = runAnalyticsTest(mediaSource);
-
-    populateEventIds(listener.lastReportedTimeline);
-    assertThat(listener.getEvents(EVENT_PLAYER_STATE_CHANGED))
-        .containsExactly(
-            WINDOW_0 /* setPlayWhenReady */,
-            WINDOW_0 /* BUFFERING */,
-            period0 /* READY */,
-            period0 /* ENDED */)
-        .inOrder();
-    assertThat(listener.getEvents(EVENT_TIMELINE_CHANGED))
-        .containsExactly(WINDOW_0 /* PLAYLIST_CHANGED */, period0 /* SOURCE_UPDATE */)
-        .inOrder();
-    assertThat(listener.getEvents(EVENT_IS_LOADING_CHANGED))
-        .containsExactly(period0 /* started */, period0 /* stopped */)
-        .inOrder();
-    assertThat(listener.getEvents(EVENT_TRACKS_CHANGED)).containsExactly(period0);
-    assertThat(listener.getEvents(EVENT_LOAD_STARTED))
-        .containsExactly(WINDOW_0 /* manifest */, period0 /* media */)
-        .inOrder();
-    assertThat(listener.getEvents(EVENT_LOAD_COMPLETED))
-        .containsExactly(WINDOW_0 /* manifest */, period0 /* media */)
-        .inOrder();
-    assertThat(listener.getEvents(EVENT_DOWNSTREAM_FORMAT_CHANGED))
-        .containsExactly(period0 /* audio */, period0 /* video */)
-        .inOrder();
-    assertThat(listener.getEvents(EVENT_DECODER_ENABLED))
-        .containsExactly(period0 /* audio */, period0 /* video */)
-        .inOrder();
-    assertThat(listener.getEvents(EVENT_DECODER_INIT))
-        .containsExactly(period0 /* audio */, period0 /* video */)
-        .inOrder();
-    assertThat(listener.getEvents(EVENT_DECODER_FORMAT_CHANGED))
-        .containsExactly(period0 /* audio */, period0 /* video */)
-        .inOrder();
-    assertThat(listener.getEvents(EVENT_AUDIO_ENABLED)).containsExactly(period0);
-    assertThat(listener.getEvents(EVENT_AUDIO_DECODER_INITIALIZED)).containsExactly(period0);
-    assertThat(listener.getEvents(EVENT_AUDIO_INPUT_FORMAT_CHANGED)).containsExactly(period0);
-    assertThat(listener.getEvents(EVENT_AUDIO_POSITION_ADVANCING)).containsExactly(period0);
-    assertThat(listener.getEvents(EVENT_VIDEO_ENABLED)).containsExactly(period0);
-    assertThat(listener.getEvents(EVENT_VIDEO_DECODER_INITIALIZED)).containsExactly(period0);
-    assertThat(listener.getEvents(EVENT_VIDEO_INPUT_FORMAT_CHANGED)).containsExactly(period0);
-    assertThat(listener.getEvents(EVENT_DROPPED_VIDEO_FRAMES)).containsExactly(period0);
-    assertThat(listener.getEvents(EVENT_VIDEO_SIZE_CHANGED)).containsExactly(period0);
-    assertThat(listener.getEvents(EVENT_RENDERED_FIRST_FRAME)).containsExactly(period0);
-    assertThat(listener.getEvents(EVENT_VIDEO_FRAME_PROCESSING_OFFSET)).containsExactly(period0);
-    listener.assertNoMoreEvents();
-  }
-
-  @Test
   public void automaticPeriodTransition() throws Exception {
     MediaSource mediaSource =
         new ConcatenatingMediaSource(

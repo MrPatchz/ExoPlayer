@@ -26,29 +26,52 @@ public class MockDataBaseTest {
 
   private SQLiteDatabase spyDatabase;
 
+  private DatabaseProvider databaseProvider;
+  /**
+   * 261 Unit test
+   */
   @Before
   public void setUp() {
     database = Mockito.mock(SQLiteDatabase.class);
     database.setVersion(-4);
-    spyDatabase = spy(database);
+    databaseProvider = TestUtil.getInMemoryDatabaseProvider();
+    spyDatabase = spy(databaseProvider.getWritableDatabase());
   }
 
+  /**
+   * 261 Unit test
+   */
   @Test
   public void MockDataBaseTesterGetVersion(){
     when(database.getVersion()).thenReturn(9);
     assertEquals(database.getVersion(), 9);
     verify(database, atLeastOnce()).getVersion();
   }
-
+  /**
+   * 261 Unit test
+   */
   @Test
   public void MockDataBaseTesterGetSize(){
     when(database.getMaximumSize()).thenReturn((long) 9000);
     assertEquals(database.getMaximumSize(), 9000);
   }
-
+  /**
+   * 261 Unit test
+   */
   @Test
   public void MockDataBaseVerifySetArgument(){
     verify(database).setVersion(eq(-4));
   }
-
+  /**
+   * 261 Unit test
+   */
+  @Test
+  public void MockDataBaseWithVersionTableSetVersion() throws DatabaseIOException {
+    VersionTable.setVersion(spyDatabase, 1, "1", 1);
+    VersionTable.setVersion(spyDatabase, 1, "2", 2);
+    when(VersionTable.getVersion(spyDatabase, 1, "1")).thenReturn(1);
+    when(VersionTable.getVersion(spyDatabase, 1, "2")).thenReturn(1);
+    assertThat(VersionTable.getVersion(spyDatabase, 1, "1")).isEqualTo(1);
+    assertThat(VersionTable.getVersion(spyDatabase, 1, "2")).isEqualTo(1);
+  }
 }
