@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,6 +28,16 @@ public class MockDataBaseTest {
   private SQLiteDatabase spyDatabase;
 
   private DatabaseProvider databaseProvider;
+
+  private static final String TABLE_NAME = DatabaseProvider.TABLE_PREFIX + "Versions";
+
+  private static final String COLUMN_FEATURE = "feature";
+  private static final String COLUMN_INSTANCE_UID = "instance_uid";
+  private static final String COLUMN_VERSION = "version";
+  private static final String PRIMARY_KEY =
+      "PRIMARY KEY (" + COLUMN_FEATURE + ", " + COLUMN_INSTANCE_UID + ")";
+
+
   /**
    * 261 Unit test
    */
@@ -66,12 +77,19 @@ public class MockDataBaseTest {
    * 261 Unit test
    */
   @Test
-  public void MockDataBaseWithVersionTableSetVersion() throws DatabaseIOException {
+  public void MockDataBaseVerifyTableCreatedTwiceVersionTable() throws DatabaseIOException {
     VersionTable.setVersion(spyDatabase, 1, "1", 1);
     VersionTable.setVersion(spyDatabase, 1, "2", 2);
-    when(VersionTable.getVersion(spyDatabase, 1, "1")).thenReturn(1);
-    when(VersionTable.getVersion(spyDatabase, 1, "2")).thenReturn(1);
-    assertThat(VersionTable.getVersion(spyDatabase, 1, "1")).isEqualTo(1);
-    assertThat(VersionTable.getVersion(spyDatabase, 1, "2")).isEqualTo(1);
+    verify(spyDatabase, times(2)).execSQL("CREATE TABLE IF NOT EXISTS "
+        + TABLE_NAME
+        + " ("
+        + COLUMN_FEATURE
+        + " INTEGER NOT NULL,"
+        + COLUMN_INSTANCE_UID
+        + " TEXT NOT NULL,"
+        + COLUMN_VERSION
+        + " INTEGER NOT NULL,"
+        + PRIMARY_KEY
+        + ")");
   }
 }
