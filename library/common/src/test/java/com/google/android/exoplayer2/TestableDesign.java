@@ -1,10 +1,14 @@
 package com.google.android.exoplayer2;
 
 import static com.google.common.truth.Truth.assertThat;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -33,6 +37,20 @@ public class TestableDesign {
     pr2 = PercentageRating.CREATOR.fromBundle(bundle);
 
     assertThat(pr == pr2);
+  }
 
+  @Test
+  public void PublicPercentageRatingTest(){
+    //instantiating new percentage rating
+    PercentageRating percentageRating = new PercentageRating(20);
+
+    //bundling the percentage rating with the public toBundle method
+    Bundle percentageRatingBundle = percentageRating.toBundle();
+
+    //unbundling the bundled percentage rating
+    PercentageRating percentageRatingBundledThenUnbundled = percentageRating.publicFromBundle(percentageRatingBundle);
+
+    //asserting that the get percent() method from the unbundled Percentage rating is consistent with instantiation
+    assertEquals(20,percentageRatingBundledThenUnbundled.getPercent(), 0 );
   }
 }
