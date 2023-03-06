@@ -119,4 +119,16 @@ public final class HeartRating extends Rating {
   private static String keyForField(@FieldNumber int field) {
     return Integer.toString(field, Character.MAX_RADIX);
   }
+
+  public HeartRating publicFromBundle(Bundle bundle) {
+    checkArgument(
+            bundle.getInt(keyForField(FIELD_RATING_TYPE), /* defaultValue= */ RATING_TYPE_UNSET)
+                    == TYPE);
+    boolean isRated = bundle.getBoolean(keyForField(FIELD_RATED), /* defaultValue= */ false);
+    return isRated
+            ? new HeartRating(bundle.getBoolean(keyForField(FIELD_IS_HEART), /* defaultValue= */ false))
+            : new HeartRating();
+  }
+
+
 }

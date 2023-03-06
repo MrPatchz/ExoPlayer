@@ -4,6 +4,8 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -39,6 +41,12 @@ public class TestableDesign {
     assertThat(pr == pr2);
   }
 
+
+  /**
+   * JUnit test which examines the functionality of the fromBundle() (private method) from PercentageRating.java by creating a
+   * public copy.
+   *
+   **/
   @Test
   public void PublicPercentageRatingTest(){
     //instantiating new percentage rating
@@ -53,4 +61,27 @@ public class TestableDesign {
     //asserting that the get percent() method from the unbundled Percentage rating is consistent with instantiation
     assertEquals(20,percentageRatingBundledThenUnbundled.getPercent(), 0 );
   }
+
+  /**
+   * JUnit test which examines the functionality of the fromBundle() (private method) from HeartRating.java by creating a
+   * public copy.
+   *
+   **/
+  @Test
+  public void PublicHeartRatingTest(){
+    //instantiating new Heart rating with true = "isHeart"
+    HeartRating heartRating = new HeartRating(true);
+
+    //bundling the heart rating with the public toBundle method
+    Bundle heartRatingBundle = heartRating.toBundle();
+
+    //unbundling the bundled heart rating
+    HeartRating heartRatingBundledThenUnbundled = heartRating.publicFromBundle(heartRatingBundle);
+
+    //asserting that the isHeart() method from the unbundled Heart rating is consistent with instantiation "true"
+   assertTrue(heartRatingBundledThenUnbundled.isHeart());
+  }
+
+
+
 }
